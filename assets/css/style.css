@@ -1626,6 +1626,31 @@ button {
   color: var(--color-on-dark-muted);
 }
 
+/* Contato e endereço: texto discreto, logo abaixo da razão social */
+.footer__contact {
+  display: flex;
+  flex-direction: column;
+  margin-top: clamp(1rem, 0.75rem + 1vw, 1.5rem);
+  font-size: var(--fs-xs);
+  font-style: normal;
+  line-height: 1.65;
+  color: var(--color-on-dark-muted);
+}
+
+.footer__contact-item {
+  align-self: flex-start;
+  transition: color var(--duration-mid) var(--ease-out-expo);
+}
+
+.footer__contact-item:hover {
+  color: var(--color-on-dark);
+}
+
+.footer__contact-address {
+  margin-top: var(--space-sm);
+}
+
+
 /* --- Colunas de links --- */
 .footer__col-title {
   margin-bottom: clamp(1.25rem, 1rem + 1vw, 1.75rem);
