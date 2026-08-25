@@ -984,6 +984,25 @@ button {
 }
 
 
+/* --- Até 768px: eyebrow e título acima da imagem, texto e CTA abaixo --- */
+@media (max-width: 767.98px) {
+  /* Sem caixa própria, o cabeçalho e o corpo do texto viram itens do
+     grid da seção e podem ser reordenados em volta da imagem. */
+  .para-quem__content {
+    display: contents;
+  }
+
+  .para-quem__head {
+    order: -1;
+  }
+
+  /* Quem espaça o título da imagem agora é o gap do grid */
+  .para-quem__title {
+    margin-bottom: 0;
+  }
+}
+
+
 /* --- 1024px+: duas colunas, texto centrado na altura da imagem --- */
 @media (min-width: 1024px) {
   .para-quem__inner {
@@ -1379,6 +1398,14 @@ button {
   will-change: auto;
 }
 
+/* Até 768px o JS liga o modo estático: sem o bloco fixado, o respiro
+   superior da seção volta a ser o padding normal de seção. */
+@media (max-width: 767.98px) {
+  .como {
+    padding-top: var(--section-py);
+  }
+}
+
 
 /* --------------------------------------------------------------------------
    SEÇÃO: PRINCIPAIS DÚVIDAS
@@ -1696,6 +1723,18 @@ button {
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.34);
   text-wrap: pretty;
+}
+
+
+/* --- Até 768px: navegação e soluções acima da marca --- */
+@media (max-width: 767.98px) {
+  .footer__col {
+    order: 1;
+  }
+
+  .footer__brand {
+    order: 2;
+  }
 }
 
 

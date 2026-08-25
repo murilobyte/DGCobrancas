@@ -288,6 +288,11 @@
      Quando o último card chega, a fixação solta e a página volta a rolar.
      ------------------------------------------------------------------------ */
 
+  /* Abaixo de 768px a fixação sai de cena: o carrossel vira um scroller
+     horizontal comum, então o dedo continua livre para rolar a página e
+     quem quiser ver os outros cards arrasta para o lado. */
+  var unpinnedCarousel = window.matchMedia("(max-width: 767.98px)");
+
   function initCarousels() {
     $$("[data-carousel]").forEach(function (root) {
       var pin = $("[data-carousel-pin]", root);
@@ -333,11 +338,12 @@
          do pin fica em cache para o scroll não precisar medir nada. */
 
       function measure() {
-        isStatic = prefersReducedMotion.matches;
+        isStatic = prefersReducedMotion.matches || unpinnedCarousel.matches;
         root.classList.toggle("is-static", isStatic);
 
         if (isStatic) {
           pin.style.height = "";
+          track.style.transform = ""; // limpa um avanço herdado do modo fixado
           travel = 0;
           pinSpan = 0;
           render(true);
@@ -409,6 +415,13 @@
 
       if (typeof prefersReducedMotion.addEventListener === "function") {
         prefersReducedMotion.addEventListener("change", measure);
+      }
+
+      // Cruzar o breakpoint remede: entra ou sai da fixação na hora.
+      if (typeof unpinnedCarousel.addEventListener === "function") {
+        unpinnedCarousel.addEventListener("change", measure);
+      } else if (typeof unpinnedCarousel.addListener === "function") {
+        unpinnedCarousel.addListener(measure); // Safari < 14
       }
 
       measure();
