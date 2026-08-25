@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>DG Cobranças — Recuperação de crédito e assessoria para o contas a receber</title>
+  <meta name="description" content="A DG Cobranças recupera valores em atraso, ajuda sua empresa a vender a prazo com mais segurança e organiza toda a rotina do contas a receber.">
+
+  <!-- Pré-carregamento das fontes usadas acima da dobra -->
+  <link rel="preload" href="src/font/SF-Pro-Display-Regular.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="src/font/SF-Pro-Display-Medium.otf" as="font" type="font/otf" crossorigin>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <a class="visually-hidden" href="#conteudo">Pular para o conteúdo</a>
+
+ 
+  <header class="header" data-header>
+    <div class="header__inner container">
+
+      <a class="header__logo" href="#inicio" aria-label="DG Cobranças — ir para o início">
+        <img src="src/svg/logo(header).svg" alt="DG Cobranças" width="353" height="56">
+      </a>
+
+      <!-- Wrapper: é o drawer no mobile e `display: contents` no desktop,
+           liberando a <nav> e o CTA como colunas do grid do header. -->
+      <div class="header__menu" id="nav-principal" data-nav>
+        <nav class="header__nav" aria-label="Navegação principal">
+          <ul class="nav__list">
+            <li class="nav__item"><a class="nav__link" href="#inicio">Início</a></li>
+            <li class="nav__item"><a class="nav__link" href="#servicos">Serviços</a></li>
+            <li class="nav__item"><a class="nav__link" href="#duvidas">Dúvidas</a></li>
+            <li class="nav__item"><a class="nav__link" href="#contato">Contato</a></li>
+          </ul>
+        </nav>
+
+        <a class="btn btn--primary header__cta" href="#contato">Fale conosco</a>
+      </div>
+
+      <button
+        class="header__toggle"
+        type="button"
+        data-nav-toggle
+        aria-controls="nav-principal"
+        aria-expanded="false"
+        aria-label="Abrir menu">
+        <span class="header__toggle-box" aria-hidden="true">
+          <span class="header__toggle-bar"></span>
+          <span class="header__toggle-bar"></span>
+          <span class="header__toggle-bar"></span>
+        </span>
+      </button>
+
+    </div>
+  </header>
+
+
+  <main id="conteudo">
+
+    <!-- ================================================================
+         SEÇÃO: HERO
+         ================================================================ -->
+    <section class="section hero" id="inicio">
+      <div class="container hero__inner" data-reveal-group="100">
+
+        <p class="eyebrow hero__eyebrow" data-reveal>DG Cobranças</p>
+
+        <h1 class="hero__title" data-reveal>
+          <span class="hero__title-line">Sua empresa já vendeu.</span>
+          <span class="hero__title-line">Agora o dinheiro precisa entrar.</span>
+        </h1>
+
+        <p class="hero__text" data-reveal>
+          <strong>Recuperamos valores em atraso</strong>, ajudamos sua empresa a
+          vender a prazo <strong>com mais segurança</strong> e organizamos toda a
+          rotina do contas a receber.
+        </p>
+
+        <p class="hero__text hero__text--tight" data-reveal>
+          Cobrança profissional, relacionamento preservado
+          e prestação de contas transparente.
+        </p>
+
+        <div class="hero__actions" data-reveal>
+          <a class="btn btn--primary" href="#contato">Analisar carteira</a>
+          <a class="btn btn--soft" href="#como-funciona">Como funciona</a>
+        </div>
+
+        <p class="hero__note" data-reveal>Análise inicial gratuita e sem compromisso.</p>
+
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         SEÇÃO: PARA QUEM É
+         ================================================================ -->
+    <section class="section para-quem" id="para-quem">
+      <div class="container para-quem__inner" data-reveal-group="150">
+
+        <figure class="para-quem__media">
+          <img
+            class="para-quem__img"
+            src="src/img/imagem-section-para-quem-e.png"
+            alt="Profissional de terno sentado em uma cafeteria, com o notebook aberto sobre a mesa, olhando pela janela."
+            width="1561" height="2340"
+            loading="lazy" decoding="async"
+            data-reveal="zoom">
+        </figure>
+
+        <div class="para-quem__content" data-reveal="right">
+
+          <p class="eyebrow">Para quem é</p>
+
+          <h2 class="section__title para-quem__title">
+            Para empresas que vendem bem, mas não querem perder tempo.
+          </h2>
+
+          <p class="section__text para-quem__text">
+            A DG Cobranças foi criada para negócios que possuem valores em
+            atraso, vendem a prazo ou precisam de mais organização financeira.
+          </p>
+
+          <p class="section__text para-quem__text">
+            É para sua empresa se você tem uma carteira de inadimplentes que
+            cresce todos os meses, não possui equipe dedicada às cobranças,
+            evita cobrar para não prejudicar o relacionamento comercial, ou
+            controla os recebimentos em planilhas, mensagens e extratos.
+          </p>
+
+          <a class="btn btn--primary para-quem__cta" href="#contato">
+            Analisar minha carteira
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         SEÇÃO: O QUE VOCÊ NÃO PRECISA CARREGAR SOZINHO
+         ================================================================ -->
+    <section class="section carregar" id="carregar">
+      <div class="container" data-reveal-group="120">
+
+        <div class="carregar__intro" data-reveal>
+
+          <p class="eyebrow">O que você não precisa carregar sozinho</p>
+
+          <h2 class="section__title carregar__title">
+            O que você não precisa carregar sozinho
+          </h2>
+
+          <p class="section__text carregar__text">
+            Você cuida da empresa. A DG cuida do caminho entre a venda e o
+            recebimento.
+          </p>
+
+          <p class="section__text carregar__text">
+            Sua equipe não precisa parar para ligar, negociar parcelas,
+            conferir pagamentos e atualizar planilhas. A DG assume essa rotina
+            com método, respeito e transparência.
+          </p>
+
+        </div>
+
+        <!-- Tabs verticais: hover/foco/clique trocam o texto da direita -->
+        <div class="carregar__panel" data-reveal data-tabs>
+
+          <div class="carregar__tabs" role="tablist" aria-orientation="vertical"
+               aria-label="Problemas que a DG assume">
+
+            <button class="carregar__tab is-active" type="button" data-tab
+                    role="tab" id="carregar-tab-1" aria-controls="carregar-pane-1"
+                    aria-selected="true" tabindex="0">
+              Cobranças constrangedoras
+            </button>
+
+            <button class="carregar__tab" type="button" data-tab
+                    role="tab" id="carregar-tab-2" aria-controls="carregar-pane-2"
+                    aria-selected="false" tabindex="-1">
+              Negociações demoradas
+            </button>
+
+            <button class="carregar__tab" type="button" data-tab
+                    role="tab" id="carregar-tab-3" aria-controls="carregar-pane-3"
+                    aria-selected="false" tabindex="-1">
+              Controles desorganizados
+            </button>
+
+            <button class="carregar__tab" type="button" data-tab
+                    role="tab" id="carregar-tab-4" aria-controls="carregar-pane-4"
+                    aria-selected="false" tabindex="-1">
+              Falta de transparência
+            </button>
+
+          </div>
+
+          <!-- Painéis empilhados na mesma célula do grid: a altura é sempre a
+               do maior, então o crossfade não move nada na página. -->
+          <div class="carregar__panes">
+
+            <div class="carregar__pane is-active" data-pane role="tabpanel"
+                 id="carregar-pane-1" aria-labelledby="carregar-tab-1" tabindex="0">
+              <p>Conduzimos as conversas de forma profissional, preservando a
+                relação com o cliente.</p>
+            </div>
+
+            <div class="carregar__pane" data-pane role="tabpanel"
+                 id="carregar-pane-2" aria-labelledby="carregar-tab-2" tabindex="0">
+              <p>Apresentamos as condições autorizadas e acompanhamos cada
+                acordo até o pagamento.</p>
+            </div>
+
+            <div class="carregar__pane" data-pane role="tabpanel"
+                 id="carregar-pane-3" aria-labelledby="carregar-tab-3" tabindex="0">
+              <p>Registramos as tratativas e mostramos a situação clara de cada
+                débito.</p>
+            </div>
+
+            <div class="carregar__pane" data-pane role="tabpanel"
+                 id="carregar-pane-4" aria-labelledby="carregar-tab-4" tabindex="0">
+              <p>Você acompanha o que foi recuperado, o que está em negociação e
+                o que ainda aguarda contato.</p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         SEÇÃO: O QUE FAZEMOS
+         ================================================================ -->
+    <section class="section fazemos" id="servicos">
+      <div class="container">
+
+        <div class="fazemos__intro" data-reveal>
+          <p class="eyebrow">O que fazemos</p>
+          <h2 class="section__title fazemos__title">
+            <span class="fazemos__title-line">Recuperar, prevenir</span>
+            <span class="fazemos__title-line">e organizar.</span>
+          </h2>
+        </div>
+
+        <ul class="fazemos__grid" role="list" data-reveal-group="150">
+
+          <li class="fazemos__card" data-reveal>
+            <h3 class="fazemos__card-title">Recuperar</h3>
+            <span class="accent-bar fazemos__bar" aria-hidden="true"></span>
+            <p class="section__text fazemos__card-text">
+              Assumimos sua carteira vencida, negociamos com cada devedor e
+              acompanhamos o pagamento até o fim.
+            </p>
+          </li>
+
+          <li class="fazemos__card" data-reveal>
+            <h3 class="fazemos__card-title">Prevenir</h3>
+            <span class="accent-bar fazemos__bar" aria-hidden="true"></span>
+            <p class="section__text fazemos__card-text">
+              Consultamos CPF e CNPJ em bases legítimas para sua empresa vender
+              a prazo com mais segurança.
+            </p>
+          </li>
+
+          <li class="fazemos__card" data-reveal>
+            <h3 class="fazemos__card-title">Organizar</h3>
+            <span class="accent-bar fazemos__bar" aria-hidden="true"></span>
+            <p class="section__text fazemos__card-text">
+              Cuidamos da rotina entre a emissão da cobrança e a confirmação do
+              pagamento, com relatórios periódicos.
+            </p>
+          </li>
+
+        </ul>
+
+        <div class="fazemos__actions" data-reveal>
+          <a class="btn btn--primary" href="#contato">Solicitar diagnóstico gratuito</a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         SEÇÃO: COMO FUNCIONA
+         ================================================================ -->
+    <section class="section como" id="como-funciona">
+
+      <!-- O bloco fica fixo enquanto o scroll da página avança os cards.
+           A altura do .como__pin é calculada no JS: altura da tela + a
+           distância horizontal a percorrer. -->
+      <div class="como__carousel" data-carousel>
+        <div class="como__pin" data-carousel-pin>
+          <div class="como__sticky" data-carousel-sticky>
+
+      <div class="container como__intro" data-reveal>
+        <p class="eyebrow">Como funciona</p>
+        <h2 class="section__title como__title">
+          <span class="como__title-line">Da planilha ao</span>
+          <span class="como__title-line">dinheiro na conta.</span>
+        </h2>
+      </div>
+
+      <!-- overflow: hidden aqui é o que impede qualquer rolagem interna,
+           inclusive a vertical. O avanço é feito por transform no trilho. -->
+      <div class="como__viewport" data-carousel-viewport>
+
+        <!-- Trilho full-bleed: o padding lateral alinha o 1º card ao
+             container e deixa os últimos sangrarem na borda da tela. -->
+        <ul class="como__track" role="list" data-carousel-track data-reveal-group="150">
+
+          <li class="como__card" data-carousel-slide data-reveal>
+            <img class="como__card-img" src="src/img/diagnostico-de-carteira.png"
+                 alt="" width="1368" height="1468" loading="lazy" decoding="async" draggable="false">
+            <div class="como__card-body">
+              <h3 class="como__card-title">Diagnóstico da carteira</h3>
+              <p class="como__card-text">
+                Você envia os títulos em aberto e analisamos o volume, o atraso
+                e o perfil das dívidas.
+              </p>
+              <a class="btn btn--primary como__card-cta" href="#contato">Solicitar diagnóstico</a>
+            </div>
+          </li>
+
+          <li class="como__card" data-carousel-slide data-reveal>
+            <img class="como__card-img" src="src/img/definicao-das-condicoes.png"
+                 alt="" width="1368" height="1468" loading="lazy" decoding="async" draggable="false">
+            <div class="como__card-body">
+              <h3 class="como__card-title">Definição das condições</h3>
+              <p class="como__card-text">
+                Sua empresa define descontos, parcelas e condições autorizadas.
+              </p>
+              <a class="btn btn--primary como__card-cta" href="#contato">Solicitar diagnóstico</a>
+            </div>
+          </li>
+
+          <li class="como__card" data-carousel-slide data-reveal>
+            <img class="como__card-img" src="src/img/operacoes-de-cobranca.png"
+                 alt="" width="1368" height="1468" loading="lazy" decoding="async" draggable="false">
+            <div class="como__card-body">
+              <h3 class="como__card-title">Operação de cobrança</h3>
+              <p class="como__card-text">
+                A DG inicia os contatos e conduz as negociações.
+              </p>
+              <a class="btn btn--primary como__card-cta" href="#contato">Solicitar diagnóstico</a>
+            </div>
+          </li>
+
+          <li class="como__card" data-carousel-slide data-reveal>
+            <img class="como__card-img" src="src/img/acompanhamento.png"
+                 alt="" width="1368" height="1468" loading="lazy" decoding="async" draggable="false">
+            <div class="como__card-body">
+              <h3 class="como__card-title">Acompanhamento</h3>
+              <p class="como__card-text">
+                Você recebe os valores no prazo combinado, com relatórios claros.
+              </p>
+              <a class="btn btn--primary como__card-cta" href="#contato">Solicitar diagnóstico</a>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+
+      <div class="container">
+        <div class="como__progress" aria-hidden="true">
+          <span class="como__progress-fill" data-carousel-progress></span>
+        </div>
+      </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <p class="section__text como__summary" data-reveal>
+          Um processo simples e transparente, do envio da sua carteira até o
+          valor recuperado na sua conta, sem burocracia e com você no controle
+          das condições em cada etapa.
+        </p>
+      </div>
+
+    </section>
+
+
+    <!-- ================================================================
+         SEÇÃO: DIFERENCIAIS
+         ================================================================ -->
+
+
+    <!-- ================================================================
+         SEÇÃO: PRINCIPAIS DÚVIDAS
+         ================================================================ -->
+
+
+    <!-- ================================================================
+         SEÇÃO: CTA FINAL
+         ================================================================ -->
+
+  </main>
+
+  <!-- ==================================================================
+       SEÇÃO: FOOTER
+       ================================================================== -->
+
+
+  <script src="script.js"></script>
+</body>
+</html>
