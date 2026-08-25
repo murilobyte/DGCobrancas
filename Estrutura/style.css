@@ -56,6 +56,7 @@
   --color-ink-soft: #3d3d3d;
   --color-muted: #6e6e6e;       /* parágrafos secundários */
   --color-muted-light: #9a9a9a; /* itens inativos, legendas */
+  --color-soft: #e3e1dc;        /* cinza preenchido do botão neutro */
   --color-line: #d8d5cd;        /* divisores */
   --color-line-dark: #2e2e2e;   /* divisores sobre fundo escuro */
 
@@ -89,6 +90,7 @@
   --lh-tight: 1.05;   /* display: títulos grandes em duas linhas */
   --lh-heading: 1.2;
   --lh-body: 1.6;
+  --lh-text: 1.4;     /* descrições e apoios: entrelinha mais fechada */
 
   --ls-tight: -0.02em;
   --ls-eyebrow: 0.08em;   /* compensa a caixa alta do eyebrow */
@@ -98,7 +100,7 @@
   --space-xs: 0.5rem;
   --space-sm: 0.75rem;
   --space-md: 1rem;
-  --space-lg: 1.5rem;
+  --space-lg: 1.2rem;
   --space-xl: 2rem;
   --space-2xl: 3rem;
   --space-3xl: 4rem;
@@ -123,8 +125,12 @@
 
   /* --- Movimento --- */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Curva mais macia que a expo: arranca sem tranco e assenta devagar.
+     Usada onde o movimento é longo, como a abertura do acordeão. */
+  --ease-smooth: cubic-bezier(0.33, 0.7, 0.2, 1);
   --duration-fast: 200ms;
   --duration-mid: 300ms;
+  --duration-slow: 520ms;
   --duration-reveal: 800ms;
 
   /* --- Elevação --- */
@@ -279,8 +285,7 @@ button {
   margin: 0 0 var(--space-lg);
   font-size: var(--fs-eyebrow);
   font-weight: var(--fw-semibold);
-  line-height: 1.3;
-  text-transform: uppercase;
+  line-height: 1.2;
   letter-spacing: var(--ls-eyebrow);
   color: var(--color-orange-500);
 }
@@ -293,6 +298,7 @@ button {
 
 .section__text {
   font-weight: var(--fw-semibold);
+  line-height: var(--lh-text);
   color: var(--color-muted);
   max-width: 62ch;
 }
@@ -369,7 +375,7 @@ button {
 
 /* Botão neutro preenchido — par secundário do primário sobre fundo claro */
 .btn--soft {
-  --btn-bg: #e3e1dc;
+  --btn-bg: var(--color-soft);
   --btn-fg: var(--color-ink);
   --btn-border: transparent;
 }
@@ -448,7 +454,8 @@ button {
    o mesmo IntersectionObserver, o mesmo easing e o mesmo stagger.
    `zoom`  — cresce sutilmente para o lugar (imagens dentro de moldura)
    `right` — desliza da direita (blocos de texto ao lado de uma imagem)
-   `pop`   — nasce menor e assenta no tamanho (ênfase em CTAs) */
+   `pop`   — nasce menor e assenta no tamanho (ênfase em CTAs)
+   `fade`  — só opacidade, sem movimento (rodapé) */
 [data-reveal="zoom"] {
   transform: scale(1.05);
 }
@@ -459,6 +466,13 @@ button {
 
 [data-reveal="pop"] {
   transform: scale(0.95);
+}
+
+/* `fade` — só opacidade, sem blur nem deslocamento (rodapé: entra
+   discreto e sem mover nada abaixo da dobra) */
+[data-reveal="fade"] {
+  filter: none;
+  transform: none;
 }
 
 /* Enquanto anima, avisa o compositor; removido pelo JS ao terminar */
@@ -826,7 +840,7 @@ button {
 /* --- Eyebrow --- */
 /* Caps, laranja e tracking vêm do .eyebrow; aqui só o que é maior no hero */
 .hero__eyebrow {
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-sm);
   font-size: clamp(1rem, 0.85rem + 0.75vw, 1.375rem); /* 16 → 22px */
   line-height: 1.2;
 }
@@ -865,6 +879,8 @@ button {
 .hero__text {
   max-width: 600px;
   margin-inline: auto;
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-text);
   color: var(--color-muted);
   text-wrap: pretty;
 }
@@ -893,10 +909,21 @@ button {
   margin-top: clamp(2rem, 1.4rem + 2vw, 2.75rem);
 }
 
+/* Hover cruzado: ao passar no secundário, ele assume o verde (regra do
+   .btn--soft) e o primário recua para o cinza, trocando a hierarquia
+   entre os dois em vez de deixar os dois em destaque ao mesmo tempo. */
+.hero__actions:has(.btn--soft:hover) .btn--primary {
+  --btn-bg: var(--color-soft);
+  --btn-fg: var(--color-ink);
+  --btn-border: transparent;
+}
+
 /* --- Nota de apoio --- */
 .hero__note {
   margin-top: var(--space-lg);
   font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-text);
   color: var(--color-muted-light);
 }
 
@@ -1055,7 +1082,8 @@ button {
      trocar de aba faz crossfade sem mexer no fluxo da página. */
   grid-area: 1 / 1;
   font-size: clamp(1.0625rem, 0.9rem + 0.8vw, 1.375rem);
-  line-height: 1.45;
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-text);
   color: var(--color-ink-soft);
 
   opacity: 0;
@@ -1191,6 +1219,11 @@ button {
   display: flex;
   gap: clamp(1rem, 0.5rem + 1.2vw, 1.75rem);
   padding-inline: var(--track-pad);
+  /* Amortecimento do carrossel: o scroll define o alvo e a transição
+     percorre o caminho até ele. A expo-out cobre quase toda a distância
+     no começo da curva, então o trilho acompanha o dedo de perto e ainda
+     assim assenta macio — sem o passo duro do mapeamento 1:1. */
+  transition: transform 400ms var(--ease-out-expo);
   will-change: transform;
 }
 
@@ -1256,11 +1289,15 @@ button {
   margin-inline: auto;
   font-size: var(--fs-base);
   font-weight: var(--fw-semibold);
-  line-height: 1.5;
+  line-height: var(--lh-text);
   color: rgba(255, 255, 255, 0.88);
 }
 
+/* `align-self` evita que o botão estique: como item de um flex column,
+   o padrão seria `stretch`, que o deixava largura cheia e maior que os
+   demais botões da página. Centrado, volta ao tamanho do conteúdo. */
 .como__card-cta {
+  align-self: center;
   margin-top: auto;
 }
 
@@ -1406,7 +1443,7 @@ button {
   flex: none;
   width: 16px;
   height: 16px;
-  transition: transform var(--duration-mid) var(--ease-out-expo);
+  transition: transform var(--duration-slow) var(--ease-smooth);
 }
 
 .faq__icon::before,
@@ -1438,7 +1475,7 @@ button {
 .faq__answer {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows var(--duration-mid) var(--ease-out-expo);
+  transition: grid-template-rows var(--duration-slow) var(--ease-smooth);
 }
 
 .faq__item.is-open .faq__answer {
@@ -1449,22 +1486,24 @@ button {
 .faq__answer-inner {
   overflow: hidden;
   opacity: 0;
-  transform: translateY(-6px);
-  transition: opacity var(--duration-mid) var(--ease-out-expo),
-    transform var(--duration-mid) var(--ease-out-expo);
+  transform: translateY(-8px);
+  transition: opacity var(--duration-mid) var(--ease-smooth),
+    transform var(--duration-slow) var(--ease-smooth);
 }
 
 /* O texto entra logo depois que a altura começa a abrir */
 .faq__item.is-open .faq__answer-inner {
   opacity: 1;
   transform: none;
-  transition-delay: 80ms;
+  transition-delay: 120ms;
 }
 
 /* Padding dentro da caixa recortada: acompanha a animação de altura */
 .faq__answer-text {
   max-width: 47ch;
   padding-block: var(--space-sm) clamp(1.25rem, 1rem + 1vw, 2rem);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-text);
   color: var(--color-muted);
   text-wrap: pretty;
 }
@@ -1512,6 +1551,8 @@ button {
   max-width: 40rem;
   margin-top: clamp(1.75rem, 1rem + 2.5vw, 2.5rem);
   font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-text);
   color: var(--color-muted);
   text-wrap: pretty;
 }
@@ -1519,7 +1560,8 @@ button {
 /* Reforço curto de objeção: menor que o parágrafo, porém em tom cheio */
 .cta__note {
   margin-top: clamp(1.25rem, 0.75rem + 1.5vw, 1.75rem);
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-text);
   color: var(--color-ink);
 }
 
@@ -1550,4 +1592,109 @@ button {
   width: 1.15em;
   height: 1.15em;
   fill: currentColor;
+}
+
+
+/* --------------------------------------------------------------------------
+   SEÇÃO: FOOTER
+   Fundo quase-preto. Marca à esquerda e duas colunas de links à direita;
+   tudo empilha em uma coluna no mobile.
+   -------------------------------------------------------------------------- */
+
+.footer {
+  padding-block: clamp(3.5rem, 2rem + 4vw, 5.5rem) clamp(2rem, 1.5rem + 2vw, 3rem);
+  background-color: var(--color-bg-dark);
+  color: var(--color-on-dark);
+}
+
+.footer__inner {
+  display: grid;
+  gap: clamp(2.5rem, 1.5rem + 4vw, 4rem);
+}
+
+/* --- Marca --- */
+.footer__logo {
+  display: block;
+  width: clamp(11.5rem, 8rem + 12vw, 19rem);
+}
+
+.footer__desc {
+  margin-top: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-text);
+  color: var(--color-on-dark-muted);
+}
+
+/* --- Colunas de links --- */
+.footer__col-title {
+  margin-bottom: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-medium);
+  letter-spacing: normal;
+  color: var(--color-on-dark);
+}
+
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.footer__link {
+  color: var(--color-on-dark-muted);
+  transition: color var(--duration-mid) var(--ease-out-expo);
+}
+
+.footer__link:hover {
+  color: var(--color-on-dark);
+}
+
+/* --- Rodapé final --- */
+.footer__bottom {
+  margin-top: clamp(3rem, 2rem + 4vw, 5rem);
+  padding-top: clamp(1.75rem, 1.25rem + 2vw, 2.5rem);
+  border-top: 1px solid var(--color-line-dark);
+  text-align: center;
+}
+
+.footer__copy {
+  font-size: var(--fs-sm);
+  color: var(--color-on-dark-muted);
+}
+
+/* Aviso antifraude: o texto mais discreto da página */
+.footer__notice {
+  max-width: 52ch;
+  margin: var(--space-sm) auto 0;
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.34);
+  text-wrap: pretty;
+}
+
+
+/* --- 560px+: as duas colunas de links dividem a linha --- */
+@media (min-width: 560px) {
+  .footer__inner {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer__brand {
+    grid-column: 1 / -1;
+  }
+}
+
+
+/* --- 900px+: marca à esquerda e as duas colunas à direita --- */
+@media (min-width: 900px) {
+  .footer__inner {
+    /* Proporção da referência: a marca ocupa ~metade da largura */
+    grid-template-columns: 1.7fr 0.7fr 1fr;
+    column-gap: clamp(2rem, 1rem + 3vw, 4rem);
+  }
+
+  .footer__brand {
+    grid-column: auto;
+  }
 }

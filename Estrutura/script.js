@@ -299,8 +299,15 @@
 
       var slides = $$("[data-carousel-slide]", track);
       var slideCount = slides.length || 1;
-      var travel = 0;      // distância horizontal a percorrer, em px
+      var travel = 0;       // distância horizontal a percorrer, em px
+      var pinTop = 0;       // topo do pin em coordenadas do documento
+      var pinSpan = 0;      // scroll vertical consumido pela fixação, em px
       var isStatic = false; // true = sem fixação (movimento reduzido)
+
+      /* Scroll vertical gasto por pixel de avanço horizontal. Abaixo de 1
+         o trilho anda mais rápido que o dedo e a seção solta antes — era
+         o 1:1 que fazia a fixação parecer travada. */
+      var SCROLL_SPAN = 0.8;
 
       /* Quanto o trilho precisa andar para o último card encostar na
          margem direita. Medido pela geometria real do último card: o
@@ -321,8 +328,9 @@
       }
 
       /* --- Medição ---
-         A altura do pin é a da tela mais o percurso horizontal: é esse
-         excedente que o navegador consome mantendo o bloco fixado. */
+         A altura do pin é a da tela mais o percurso a consumir: é esse
+         excedente que o navegador gasta mantendo o bloco fixado. O topo
+         do pin fica em cache para o scroll não precisar medir nada. */
 
       function measure() {
         isStatic = prefersReducedMotion.matches;
@@ -330,19 +338,24 @@
 
         if (isStatic) {
           pin.style.height = "";
-          track.style.transform = "";
           travel = 0;
-          update();
+          pinSpan = 0;
+          render(true);
           return;
         }
 
         travel = measureTravel();
-        pin.style.height = sticky.offsetHeight + travel + "px";
-        update();
+        pinSpan = Math.round(travel * SCROLL_SPAN);
+        pinTop = pin.getBoundingClientRect().top + window.scrollY;
+        pin.style.height = sticky.offsetHeight + pinSpan + "px";
+
+        // Medir e redimensionar reposicionam na hora, sem deslizar.
+        render(true);
       }
 
       /* --- Progresso ---
-         Fixado: quanto do excedente do pin já passou pelo topo da tela.
+         Fixado: quanto do excedente do pin já passou pelo topo da tela,
+         lido de window.scrollY para não medir layout a cada evento.
          Estático: a posição do scroller horizontal nativo. */
 
       function getProgress() {
@@ -351,35 +364,40 @@
           return max > 0 ? viewport.scrollLeft / max : 0;
         }
 
-        if (travel <= 0) return 0;
-        var offset = -pin.getBoundingClientRect().top;
-        return Math.min(1, Math.max(0, offset / travel));
+        if (pinSpan <= 0) return 0;
+        var offset = window.scrollY - pinTop;
+        return Math.min(1, Math.max(0, offset / pinSpan));
       }
 
-      function update() {
+      /* O scroll só define o alvo; quem suaviza o caminho até ele é a
+         transição CSS do trilho. `instant` desliga a transição por um
+         frame, para medição e resize não virarem um deslize. */
+      function render(instant) {
         var progress = getProgress();
 
         if (!isStatic && travel > 0) {
+          if (instant) track.style.transition = "none";
+
           track.style.transform =
             "translate3d(" + (-progress * travel).toFixed(2) + "px, 0, 0)";
+
+          if (instant) {
+            void track.offsetWidth; // aplica o salto antes de religar
+            track.style.transition = "";
+          }
         }
 
         if (fill) {
           // Começa em 1/N e termina em 1: lê como "etapa atual de N".
-          var value = (1 + progress * (slideCount - 1)) / slideCount;
-          fill.style.transform = "scaleX(" + value + ")";
+          fill.style.transform =
+            "scaleX(" + (1 + progress * (slideCount - 1)) / slideCount + ")";
         }
       }
 
-      var ticking = false;
-
       function onScroll() {
-        if (ticking) return;
-        ticking = true;
-        window.requestAnimationFrame(function () {
-          update();
-          ticking = false;
-        });
+        // Só escreve estilo: nada aqui força o navegador a medir layout,
+        // então não precisa passar por requestAnimationFrame.
+        render(false);
       }
 
       window.addEventListener("scroll", onScroll, { passive: true });
