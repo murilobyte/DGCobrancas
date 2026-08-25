@@ -447,13 +447,18 @@ button {
 /* Variantes de entrada: só trocam o transform inicial, reaproveitando
    o mesmo IntersectionObserver, o mesmo easing e o mesmo stagger.
    `zoom`  — cresce sutilmente para o lugar (imagens dentro de moldura)
-   `right` — desliza da direita (blocos de texto ao lado de uma imagem) */
+   `right` — desliza da direita (blocos de texto ao lado de uma imagem)
+   `pop`   — nasce menor e assenta no tamanho (ênfase em CTAs) */
 [data-reveal="zoom"] {
   transform: scale(1.05);
 }
 
 [data-reveal="right"] {
   transform: translateX(clamp(20px, 3vw, 40px));
+}
+
+[data-reveal="pop"] {
+  transform: scale(0.95);
 }
 
 /* Enquanto anima, avisa o compositor; removido pelo JS ao terminar */
@@ -1335,4 +1340,214 @@ button {
 
 .como__carousel.is-static .como__track {
   will-change: auto;
+}
+
+
+/* --------------------------------------------------------------------------
+   SEÇÃO: PRINCIPAIS DÚVIDAS
+   Accordion exclusivo em coluna estreita e centrada sobre fundo branco.
+   A altura anima por grid-template-rows (0fr → 1fr): nada precisa ser
+   medido no JS e a transição funciona com qualquer quantidade de texto.
+   -------------------------------------------------------------------------- */
+
+.faq {
+  background-color: var(--color-white);
+}
+
+/* Coluna estreita; o .container continua cuidando das gutters laterais */
+.faq__inner {
+  max-width: calc(700px + var(--container-gutter) * 2);
+}
+
+.faq__title {
+  text-align: center;
+}
+
+.faq__list {
+  margin-top: clamp(2.25rem, 1rem + 4vw, 4.5rem);
+}
+
+/* Divisória só entre itens: o primeiro não tem linha acima nem o último
+   abaixo. Cinza neutro em vez de --color-line, que é quente demais e
+   praticamente some sobre o branco puro desta seção. */
+.faq__item + .faq__item {
+  border-top: 1px solid rgba(21, 21, 21, 0.16);
+}
+
+/* O <h3> é só semântica: toda a aparência vem do botão */
+.faq__heading {
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+.faq__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  width: 100%;
+  padding-block: clamp(0.875rem, 0.7rem + 0.45vw, 1.125rem);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-tight);
+  text-align: left;
+  color: var(--color-ink);
+  transition: color var(--duration-mid) var(--ease-out-expo);
+}
+
+.faq__question:hover {
+  color: var(--color-green-800);
+}
+
+/* --- Ícone: duas barras formando "+"; girar 45° já entrega o "×" --- */
+.faq__icon {
+  position: relative;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  transition: transform var(--duration-mid) var(--ease-out-expo);
+}
+
+.faq__icon::before,
+.faq__icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 1px;
+  background-color: currentColor;
+  transform: translate(-50%, -50%);
+}
+
+.faq__icon::before {
+  width: 100%;
+  height: 1.5px;
+}
+
+.faq__icon::after {
+  width: 1.5px;
+  height: 100%;
+}
+
+.faq__item.is-open .faq__icon {
+  transform: rotate(45deg);
+}
+
+/* --- Painel de resposta --- */
+.faq__answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-mid) var(--ease-out-expo);
+}
+
+.faq__item.is-open .faq__answer {
+  grid-template-rows: 1fr;
+}
+
+/* O overflow é o que permite a linha 0fr colapsar o conteúdo */
+.faq__answer-inner {
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity var(--duration-mid) var(--ease-out-expo),
+    transform var(--duration-mid) var(--ease-out-expo);
+}
+
+/* O texto entra logo depois que a altura começa a abrir */
+.faq__item.is-open .faq__answer-inner {
+  opacity: 1;
+  transform: none;
+  transition-delay: 80ms;
+}
+
+/* Padding dentro da caixa recortada: acompanha a animação de altura */
+.faq__answer-text {
+  max-width: 47ch;
+  padding-block: var(--space-sm) clamp(1.25rem, 1rem + 1vw, 2rem);
+  color: var(--color-muted);
+  text-wrap: pretty;
+}
+
+/* --- Botão --- */
+.faq__actions {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2.25rem, 1.25rem + 3.5vw, 4rem);
+}
+
+/* Contorno escuro, como na referência: o cinza padrão do .btn--secondary
+   foi pensado para os fundos creme, não para o branco puro daqui. */
+.faq__cta {
+  --btn-border: var(--color-ink);
+}
+
+
+/* --------------------------------------------------------------------------
+   SEÇÃO: CTA FINAL
+   Última chamada antes do rodapé: coluna única centrada, com respiro
+   maior que o das seções comuns.
+   -------------------------------------------------------------------------- */
+
+.cta {
+  /* Respiro generoso: redefine o token da própria .section */
+  --section-py: clamp(4rem, 2rem + 7vw, 8.5rem);
+
+  background-color: var(--color-bg);
+}
+
+.cta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Cada frase na própria linha; no mobile o wrap interno segue livre */
+.cta__title-line {
+  display: block;
+}
+
+.cta__text {
+  max-width: 40rem;
+  margin-top: clamp(1.75rem, 1rem + 2.5vw, 2.5rem);
+  font-size: var(--fs-lg);
+  color: var(--color-muted);
+  text-wrap: pretty;
+}
+
+/* Reforço curto de objeção: menor que o parágrafo, porém em tom cheio */
+.cta__note {
+  margin-top: clamp(1.25rem, 0.75rem + 1.5vw, 1.75rem);
+  font-weight: var(--fw-medium);
+  color: var(--color-ink);
+}
+
+.cta__actions {
+  margin-top: clamp(2.25rem, 1.25rem + 4vw, 4rem);
+}
+
+/* --- Link de apoio abaixo do botão --- */
+.cta__whats {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--color-ink-soft);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--duration-mid) var(--ease-out-expo);
+}
+
+.cta__whats:hover {
+  color: var(--color-green-800);
+}
+
+.cta__whats-icon {
+  width: 1.15em;
+  height: 1.15em;
+  fill: currentColor;
 }

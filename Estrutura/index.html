@@ -398,11 +398,165 @@
     <!-- ================================================================
          SEÇÃO: PRINCIPAIS DÚVIDAS
          ================================================================ -->
+    <section class="section faq" id="duvidas">
+      <div class="container faq__inner">
+
+        <h2 class="section__title faq__title" data-reveal>Principais dúvidas</h2>
+
+        <!-- Accordion exclusivo: o item que abre fecha o anterior.
+             O primeiro nasce aberto (como na referência) — para começar
+             tudo fechado, basta trocar o aria-expanded e remover .is-open. -->
+        <div class="faq__list" data-faq data-reveal-group="90">
+
+          <div class="faq__item is-open" data-faq-item data-reveal>
+            <h3 class="faq__heading">
+              <button class="faq__question" type="button" data-faq-trigger
+                      id="faq-trigger-1" aria-controls="faq-panel-1" aria-expanded="true">
+                Como a DG cobra pelos serviços?
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__answer" id="faq-panel-1" role="region"
+                 aria-labelledby="faq-trigger-1" data-faq-panel>
+              <div class="faq__answer-inner">
+                <p class="faq__answer-text">
+                  A proposta é preparada após a análise da carteira,
+                  considerando volume, tempo de atraso e perfil das dívidas.
+                  Todas as condições são apresentadas por escrito antes do
+                  início do trabalho.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__item" data-faq-item data-reveal>
+            <h3 class="faq__heading">
+              <button class="faq__question" type="button" data-faq-trigger
+                      id="faq-trigger-2" aria-controls="faq-panel-2" aria-expanded="false">
+                Minha empresa define as condições dos acordos?
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__answer" id="faq-panel-2" role="region"
+                 aria-labelledby="faq-trigger-2" data-faq-panel>
+              <div class="faq__answer-inner">
+                <p class="faq__answer-text">
+                  Sim. Antes de começar, sua empresa determina descontos,
+                  prazos e condições de parcelamento. A DG negocia somente
+                  dentro dessa autorização.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__item" data-faq-item data-reveal>
+            <h3 class="faq__heading">
+              <button class="faq__question" type="button" data-faq-trigger
+                      id="faq-trigger-3" aria-controls="faq-panel-3" aria-expanded="false">
+                A cobrança pode prejudicar minha relação com o cliente?
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__answer" id="faq-panel-3" role="region"
+                 aria-labelledby="faq-trigger-3" data-faq-panel>
+              <div class="faq__answer-inner">
+                <p class="faq__answer-text">
+                  Nossa abordagem é profissional, respeitosa e orientada ao
+                  diálogo. Preservar o relacionamento comercial faz parte do
+                  serviço.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__item" data-faq-item data-reveal>
+            <h3 class="faq__heading">
+              <button class="faq__question" type="button" data-faq-trigger
+                      id="faq-trigger-4" aria-controls="faq-panel-4" aria-expanded="false">
+                Dívidas antigas ainda podem ser recuperadas?
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__answer" id="faq-panel-4" role="region"
+                 aria-labelledby="faq-trigger-4" data-faq-panel>
+              <div class="faq__answer-inner">
+                <p class="faq__answer-text">
+                  Sim. A situação financeira do devedor pode mudar com o
+                  tempo. Uma nova abordagem, no momento certo, pode recuperar
+                  valores considerados perdidos.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq__item" data-faq-item data-reveal>
+            <h3 class="faq__heading">
+              <button class="faq__question" type="button" data-faq-trigger
+                      id="faq-trigger-5" aria-controls="faq-panel-5" aria-expanded="false">
+                Quando recebo os valores recuperados?
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__answer" id="faq-panel-5" role="region"
+                 aria-labelledby="faq-trigger-5" data-faq-panel>
+              <div class="faq__answer-inner">
+                <p class="faq__answer-text">
+                  No prazo estabelecido em contrato, acompanhados de uma
+                  prestação de contas detalhada.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="faq__actions" data-reveal>
+          <a class="btn btn--secondary faq__cta" href="#contato">
+            Ainda tem dúvidas? Fale com a gente
+          </a>
+        </div>
+
+      </div>
+    </section>
 
 
     <!-- ================================================================
          SEÇÃO: CTA FINAL
          ================================================================ -->
+    <section class="section cta" id="contato">
+      <div class="container cta__inner" data-reveal-group="110">
+
+        <h2 class="section__title cta__title" data-reveal>
+          <span class="cta__title-line">Quanto da sua carteira ainda</span>
+          <span class="cta__title-line">pode voltar para o caixa?</span>
+        </h2>
+
+        <p class="cta__text" data-reveal>
+          Envie as informações básicas dos títulos em aberto. A DG fará uma
+          análise inicial gratuita e apresentará uma estratégia adequada à
+          realidade da sua empresa.
+        </p>
+
+        <p class="cta__note" data-reveal>
+          Sem custo. Sem compromisso. Com total confidencialidade.
+        </p>
+
+        <!-- O reveal fica no wrapper, não no <a>: o transform do .btn:hover
+             não pode disputar com o transform da animação de entrada. -->
+        <div class="cta__actions" data-reveal="pop">
+          <a class="btn btn--primary" href="https://wa.me/5537998157790">Analisar carteira</a>
+        </div>
+
+        <a class="cta__whats" href="https://wa.me/5537998157790"
+           target="_blank" rel="noopener" data-reveal>
+          <svg class="cta__whats-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 1.67c2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.16 8.16 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.23-8.24Zm-4.5 4.4c-.21 0-.56.08-.85.4-.29.32-1.11 1.09-1.11 2.65s1.14 3.07 1.3 3.28c.16.21 2.21 3.37 5.35 4.6 2.61 1.03 3.14.82 3.71.77.57-.05 1.83-.75 2.09-1.47.26-.72.26-1.34.18-1.47-.08-.13-.29-.21-.61-.37-.31-.16-1.83-.9-2.11-1.01-.29-.11-.5-.16-.71.16-.21.31-.81 1.01-.99 1.22-.19.21-.37.24-.68.08-.32-.16-1.33-.49-2.53-1.56-.94-.83-1.57-1.86-1.75-2.17-.19-.32-.02-.49.13-.65.14-.14.32-.37.47-.55.16-.19.21-.32.32-.53.1-.21.05-.4-.03-.55-.08-.16-.7-1.69-.96-2.31-.25-.61-.51-.53-.7-.54h-.6Z"/>
+          </svg>
+          Falar pelo WhatsApp
+        </a>
+
+      </div>
+    </section>
 
   </main>
 

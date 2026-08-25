@@ -398,6 +398,53 @@
   }
 
 
+  /* ------------------------------------------------------------------------
+     SEÇÃO: PRINCIPAIS DÚVIDAS — accordion exclusivo
+     Abrir um item fecha o que estava aberto. A animação de altura é 100%
+     CSS (grid-template-rows), então aqui só cuidamos de estado e ARIA.
+     ------------------------------------------------------------------------ */
+
+  function initAccordions() {
+    $$("[data-faq]").forEach(function (group) {
+      var items = $$("[data-faq-item]", group);
+      if (!items.length) return;
+
+      // Item aberto no momento (só um por grupo).
+      var current = null;
+
+      function setOpen(item, open) {
+        var trigger = $("[data-faq-trigger]", item);
+        var panel = $("[data-faq-panel]", item);
+
+        item.classList.toggle("is-open", open);
+        if (trigger) trigger.setAttribute("aria-expanded", String(open));
+        // Tira o painel fechado da árvore de acessibilidade sem
+        // interromper a transição (inert não afeta a renderização).
+        if (panel) panel.inert = !open;
+      }
+
+      items.forEach(function (item) {
+        var trigger = $("[data-faq-trigger]", item);
+        if (!trigger) return;
+
+        // Estado inicial: o que o HTML já declarou.
+        var startsOpen = trigger.getAttribute("aria-expanded") === "true";
+        setOpen(item, startsOpen);
+        if (startsOpen) current = item;
+
+        trigger.addEventListener("click", function () {
+          var willOpen = item !== current;
+
+          if (current) setOpen(current, false);
+          if (willOpen) setOpen(item, true);
+
+          current = willOpen ? item : null;
+        });
+      });
+    });
+  }
+
+
   /* ========================================================================
      BOOT
      ======================================================================== */
@@ -407,6 +454,7 @@
     initNav();
     initTabs();
     initCarousels();
+    initAccordions();
     initReveal();
   }
 
